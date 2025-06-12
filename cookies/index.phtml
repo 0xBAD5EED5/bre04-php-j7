@@ -1,11 +1,23 @@
 <?php
-var_dump($_POST['color']);
-if (isset($_POST['color']) && $_POST['color'] === "rouge") {
-	setcookie("css", "assets/css/red.css");
-} else if (isset($_POST['color']) && $_POST['color'] === "blue") {
-	setcookie("css", "assets/css/blue.css");
-} else {
-	setcookie("css", "assets/css/default.css");
+var_dump($_POST);
+if (isset($_POST["colors"])) {
+   setcookie("color", $_POST["colors"]);
+}
+
+var_dump($_COOKIE);
+
+$source_css = "default.css";
+
+if (isset($_COOKIE["color"])) {
+
+    if ($_COOKIE["color"] === "red")
+    {
+        $source_css = "red.css";
+    }
+    else if ($_COOKIE["color"] === "blue")
+    {
+        $source_css = "blue.css";
+    }
 }
 ?>
 
@@ -14,7 +26,7 @@ if (isset($_POST['color']) && $_POST['color'] === "rouge") {
 	<head>
 		<meta charset="utf-8">
 		<title>Exercice cookie</title>
-		<link rel="stylesheet" href="<?php echo $_COOKIE["css"]; ?>" />
+		<link rel="stylesheet" href="<?= $source_css ?>" />
 	</head>
 	<body>
 		<h1>
